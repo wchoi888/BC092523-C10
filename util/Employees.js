@@ -93,6 +93,18 @@ class Employees {
         throw err;
       });
   }
+  viewEmployeesbyDepartment(details) {
+    return db
+      .promise()
+      .query(
+        `SELECT tbl1.id, CONCAT(tbl1.first_name, " ", tbl1.last_name) AS name 
+    FROM ${this.table} AS tbl1 LEFT JOIN role as tbl2 ON tbl1.role_id=tbl2.id LEFT JOIN department as tbl3 ON tbl2.department_id=tbl3.id WHERE tbl2.department_id=${details.department}`
+      )
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
   deleteEmployee() {}
 }
 module.exports = Employees;

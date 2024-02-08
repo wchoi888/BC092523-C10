@@ -18,6 +18,7 @@ async function userPrompt() {
         "View all departments",
         "Add department",
         "View Employees by Manager",
+        "View Employees by Department",
         "Quit",
       ],
     },
@@ -224,6 +225,23 @@ async function userPrompt() {
       );
       for (let i = 0; i < employeebyManager.length; i++) {
         console.log(employeebyManager[i].name + "\n");
+      }
+
+      break;
+    case "View Employees by Department":
+      questions = [
+        {
+          type: "list",
+          name: "department",
+          message: "Which department you wish to display employees?",
+          choices: departmentList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      const employeesbyDepartment =
+        await employeeAction.viewEmployeesbyDepartment(data);
+      for (let i = 0; i < employeesbyDepartment.length; i++) {
+        console.log(employeesbyDepartment[i].name + "\n");
       }
 
       break;
