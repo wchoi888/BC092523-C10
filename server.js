@@ -11,7 +11,7 @@ async function userPrompt() {
       choices: [
         "View All Employees",
         "Add Employee",
-        "Update Employee",
+        "Update Employee Manager",
         "Update Employee Role",
         "View all roles",
         "Add Role",
@@ -187,6 +187,26 @@ async function userPrompt() {
       data = await inquirer.prompt(questions);
       await employeeAction.updateEmployeeRole(data);
       console.log(` The role is updated to the database`);
+      break;
+    case "Update Employee Manager":
+      questions = [
+        {
+          type: "list",
+          name: "name",
+          message: "Whose employee manager are you updating?",
+          choices: employeeOption,
+        },
+        {
+          type: "list",
+          name: "manager",
+          message:
+            "Who is the new manager you wish to assign to this employee?",
+          choices: managerList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      await employeeAction.updateEmployeeManager(data);
+      console.log(` The manager is updated to the database`);
       break;
     case "Quit":
       console.log("Goodbye");

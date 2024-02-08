@@ -70,6 +70,17 @@ class Employees {
         throw err;
       });
   }
+  updateEmployeeManager(details) {
+    return db
+      .promise()
+      .query(
+        `UPDATE ${this.table} SET manager_id=${details.manager} WHERE id=${details.name}`
+      )
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
   deleteEmployee() {}
 }
 module.exports = Employees;
