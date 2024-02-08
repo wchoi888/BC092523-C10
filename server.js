@@ -30,7 +30,7 @@ async function userPrompt() {
   let departmentList = [];
   const allDept = await deptAction.viewDept();
   for (let i = 0; i < allDept.length; i++) {
-    departmentList.push(allDept[i].name);
+    departmentList.push({ name: allDept[i].name, value: allDept[i].id });
   }
   let employeeOption = [];
   const employeeArray = await employeeAction.viewEmployeeName();
@@ -46,6 +46,14 @@ async function userPrompt() {
     roleList.push({
       name: roleArray[i].title,
       value: roleArray[i].id,
+    });
+  }
+  let managerList = ["none"];
+  let managerArray = await employeeAction.viewManagers();
+  for (let i = 0; i < managerArray.length; i++) {
+    managerList.push({
+      name: managerArray[i].manager,
+      value: managerArray[i].id,
     });
   }
   switch (response.action) {
@@ -132,28 +140,34 @@ async function userPrompt() {
       }
 
       break;
-    case "Add Employees":
+    case "Add Employee":
       questions = [
         {
           type: "input",
-          name: "role",
-          message: "What is the name of the role?",
+          name: "firstName",
+          message: "What is the first name of the employee?",
         },
         {
           type: "input",
-          name: "salary",
-          message: "What is the salary of the role?",
+          name: "lastName",
+          message: "What is the last name of the employee?",
         },
         {
           type: "list",
-          name: "department",
-          message: "Which department does the role belong to?",
-          choices: departmentList,
+          name: "role",
+          message: "What is the employee's role?",
+          choices: roleList,
+        },
+        {
+          type: "list",
+          name: "manager",
+          message: "Who is the employee's manager?",
+          choices: managerList,
         },
       ];
       data = await inquirer.prompt(questions);
-      await roleAction.addRole(data);
-      console.log(`Added ${data.role} to the database`);
+      await employeeAction.addEmployee(data);
+      console.log(`Added ${data.firstName} to the database`);
       break;
     case "Update Employee Role":
       questions = [

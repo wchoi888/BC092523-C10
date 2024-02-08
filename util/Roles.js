@@ -30,14 +30,10 @@ class Roles {
       });
   }
   addRole(details) {
-    let dept_id = db.query(
-      `SELECT id FROM department WHERE name = "${details.department}"`
-    );
-    console.log(dept_id);
     return db
       .promise()
       .query(
-        `INSERT INTO ${this.table} (title, salary, department_id) VALUES ("${details.role}", "${details.salary}", ${dept_id})`
+        `INSERT INTO ${this.table} (title, salary, department_id) VALUES ("${details.role}", "${details.salary}", ${details.department})`
       )
       .then(([rows, fields]) => rows)
       .catch((err) => {

@@ -31,7 +31,34 @@ class Employees {
         throw err;
       });
   }
-  addEmployee(details) {}
+  viewManagers() {
+    return db
+      .promise()
+      .query(
+        `SELECT tbl1.id, CONCAT(tbl1.first_name, " ", tbl1.last_name) AS manager 
+        FROM ${this.table} AS tbl1 
+        LEFT JOIN ${this.table} AS tbl2 ON tbl1.manager_id = tbl2.id
+        WHERE tbl1.manager_id IS NULL`
+      )
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
+  addEmployee(details) {
+    if (details.manager === "") {
+      details.manager = null;
+    }
+    return db
+      .promise()
+      .query(
+        `INSERT INTO ${this.table} (first_name, last_name, role_id, manager_id) VALUE ("${details.firstName}", "${details.lastName}", ${details.role}, ${details.manager})`
+      )
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
   updateEmployeeRole(details) {
     return db
       .promise()
