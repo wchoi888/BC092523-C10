@@ -17,6 +17,7 @@ async function userPrompt() {
         "Add Role",
         "View all departments",
         "Add department",
+        "View Employees by Manager",
         "Quit",
       ],
     },
@@ -207,6 +208,24 @@ async function userPrompt() {
       data = await inquirer.prompt(questions);
       await employeeAction.updateEmployeeManager(data);
       console.log(` The manager is updated to the database`);
+      break;
+    case "View Employees by Manager":
+      questions = [
+        {
+          type: "list",
+          name: "manager",
+          message: "Who is the manager you wish to display employees?",
+          choices: managerList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      const employeebyManager = await employeeAction.viewEmployeeNamebyManager(
+        data
+      );
+      for (let i = 0; i < employeebyManager.length; i++) {
+        console.log(employeebyManager[i].name + "\n");
+      }
+
       break;
     case "Quit":
       console.log("Goodbye");

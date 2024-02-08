@@ -81,6 +81,18 @@ class Employees {
         throw err;
       });
   }
+  viewEmployeeNamebyManager(details) {
+    return db
+      .promise()
+      .query(
+        `SELECT tbl1.id, CONCAT(tbl1.first_name, " ", tbl1.last_name) AS name 
+    FROM ${this.table} AS tbl1 WHERE manager_id=${details.manager}`
+      )
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
   deleteEmployee() {}
 }
 module.exports = Employees;
