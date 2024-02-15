@@ -40,7 +40,15 @@ class Roles {
         throw err;
       });
   }
-  updateRole(id) {}
-  deleteRole() {}
+  deleteRole(details) {
+    return db
+      .promise()
+      .query(`DELETE FROM ${this.table} WHERE id = ${details.role}`)
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        throw err;
+      });
+  }
 }
+
 module.exports = Roles;

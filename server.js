@@ -19,6 +19,10 @@ async function userPrompt() {
         "Add department",
         "View Employees by Manager",
         "View Employees by Department",
+        "Delete Employee",
+        "Delete Role",
+        "Delete Department",
+        "View Consolidated Budget by Department",
         "Quit",
       ],
     },
@@ -242,6 +246,61 @@ async function userPrompt() {
         await employeeAction.viewEmployeesbyDepartment(data);
       for (let i = 0; i < employeesbyDepartment.length; i++) {
         console.log(employeesbyDepartment[i].name + "\n");
+      }
+
+      break;
+    case "Delete Employee":
+      questions = [
+        {
+          type: "list",
+          name: "name",
+          message: "Which employee do you want to delete?",
+          choices: employeeOption,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      await employeeAction.deleteEmployee(data);
+      console.log(` The employee has been deleted in the database`);
+      break;
+    case "Delete Role":
+      questions = [
+        {
+          type: "list",
+          name: "role",
+          message: "Which role do you want to delete?",
+          choices: roleList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      await roleAction.deleteRole(data);
+      console.log(` The role has been deleted in the database`);
+      break;
+    case "Delete Department":
+      questions = [
+        {
+          type: "list",
+          name: "department",
+          message: "Which department do you want to delete?",
+          choices: departmentList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      await deptAction.deleteDepartment(data);
+      console.log(` The department has been deleted in the database`);
+      break;
+    case "View Consolidated Budget by Department":
+      questions = [
+        {
+          type: "list",
+          name: "department",
+          message: "Which department you wish to display budget?",
+          choices: departmentList,
+        },
+      ];
+      data = await inquirer.prompt(questions);
+      const budget = await deptAction.viewBudget(data);
+      for (let i = 0; i < budget.length; i++) {
+        console.log(budget[i].total + "\n");
       }
 
       break;
