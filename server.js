@@ -2,7 +2,9 @@ const inquirer = require("inquirer");
 const Employee = require("./util/Employees");
 const Department = require("./util/Departments");
 const Role = require("./util/Roles");
+// Function to prompt the user for actions
 async function userPrompt() {
+  // Prompt the user with a list of actions
   const response = await inquirer.prompt([
     {
       type: "list",
@@ -27,18 +29,22 @@ async function userPrompt() {
       ],
     },
   ]);
-
+  // Initialize instances of classes for actions
   let deptAction = new Department();
   let roleAction = new Role();
   let questions;
   let data;
   let employeeAction = new Employee();
+  // Array to store department names and IDs
   let departmentList = [];
+  // Retrieve all departments and populate departmentList
   const allDept = await deptAction.viewDept();
   for (let i = 0; i < allDept.length; i++) {
     departmentList.push({ name: allDept[i].name, value: allDept[i].id });
   }
+  // Array to store employee names and IDs
   let employeeOption = [];
+  // Retrieve all employees and populate employeeOption
   const employeeArray = await employeeAction.viewEmployeeName();
   for (let i = 0; i < employeeArray.length; i++) {
     employeeOption.push({
@@ -46,7 +52,9 @@ async function userPrompt() {
       value: employeeArray[i].id,
     });
   }
+  // Array to store role titles and IDs
   let roleList = [];
+  // Retrieve all roles and populate roleList
   let roleArray = await roleAction.viewAllRoles();
   for (let i = 0; i < roleArray.length; i++) {
     roleList.push({
@@ -62,6 +70,7 @@ async function userPrompt() {
       value: managerArray[i].id,
     });
   }
+  // Switch statement to handle different user actions
   switch (response.action) {
     case "View all departments":
       console.log("\nid Department\n-- ---------\n");
@@ -71,6 +80,7 @@ async function userPrompt() {
       }
       break;
     case "Add department":
+      // Prompt user to add a new department
       questions = [
         {
           type: "input",
@@ -82,7 +92,9 @@ async function userPrompt() {
       await deptAction.addDept(data);
       console.log(`Added ${data.department} to the database`);
       break;
+
     case "View all roles":
+      // Display all roles with department information
       console.log(
         "\nid title \t\tdepartment\tsalary\n-- -------------\t-----------\t---------\n"
       );
@@ -100,6 +112,7 @@ async function userPrompt() {
       }
       break;
     case "Add Role":
+      // Prompt user to add a new role
       questions = [
         {
           type: "input",
@@ -304,6 +317,7 @@ async function userPrompt() {
       }
 
       break;
+    // Other cases handling employee actions...
     case "Quit":
       console.log("Goodbye");
       break;
@@ -315,4 +329,5 @@ async function userPrompt() {
     userPrompt();
   }
 }
+// Start the prompt
 userPrompt();

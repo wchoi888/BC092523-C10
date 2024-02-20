@@ -4,6 +4,7 @@ class Roles {
   constructor() {
     this.table = "role";
   }
+  // Method to retrieve employee roles with their associated departments
   viewEmployeeRoles() {
     return db
       .promise()
@@ -17,6 +18,7 @@ class Roles {
         throw err;
       });
   }
+  // Method to retrieve all roles
   viewAllRoles() {
     return db
       .promise()
@@ -29,6 +31,7 @@ class Roles {
         throw err;
       });
   }
+  // Method to add a new role
   addRole(details) {
     return db
       .promise()
@@ -40,6 +43,7 @@ class Roles {
         throw err;
       });
   }
+  // Method to delete a role
   deleteRole(details) {
     return db
       .promise()

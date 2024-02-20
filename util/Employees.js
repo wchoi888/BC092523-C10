@@ -4,6 +4,7 @@ class Employees {
   constructor() {
     this.table = "employee";
   }
+  // Method to view all employees with their details
   viewEmployees() {
     return db
       .promise()
@@ -14,11 +15,12 @@ class Employees {
       LEFT JOIN DEPARTMENT AS tbl3 ON tbl2.department_id =tbl3.id 
       LEFT JOIN ${this.table} AS tbl4 ON tbl1.manager_id = tbl4.id`
       )
-      .then(([rows, fields]) => rows)
+      .then(([rows, fields]) => rows) // Extract and return the rows from the result
       .catch((err) => {
         throw err;
       });
   }
+  // Method to view employee names
   viewEmployeeName() {
     return db
       .promise()
@@ -31,6 +33,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to view managers
   viewManagers() {
     return db
       .promise()
@@ -45,6 +48,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to add a new employee
   addEmployee(details) {
     if (details.manager === "") {
       details.manager = null;
@@ -59,6 +63,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to update an employee's role
   updateEmployeeRole(details) {
     return db
       .promise()
@@ -70,6 +75,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to update an employee's manager
   updateEmployeeManager(details) {
     return db
       .promise()
@@ -81,6 +87,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to view employee names by manager
   viewEmployeeNamebyManager(details) {
     return db
       .promise()
@@ -93,6 +100,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to view employees by department
   viewEmployeesbyDepartment(details) {
     return db
       .promise()
@@ -105,6 +113,7 @@ class Employees {
         throw err;
       });
   }
+  // Method to delete an employee
   deleteEmployee(details) {
     return db
       .promise()
@@ -115,4 +124,5 @@ class Employees {
       });
   }
 }
+// Export the Employees class for use in other files
 module.exports = Employees;

@@ -1,3 +1,4 @@
+// Import the Sequelize library
 const Sequelize = require("sequelize");
 
 // Create a connection object
@@ -15,5 +16,5 @@ const sequelize = new Sequelize(
     port: 3306,
   }
 );
-
+// Export the sequelize connection object for use in other files
 module.exports = sequelize;
