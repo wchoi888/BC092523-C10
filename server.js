@@ -62,6 +62,7 @@ async function userPrompt() {
       value: roleArray[i].id,
     });
   }
+  // Array to store manager names and IDs
   let managerList = ["none"];
   let managerArray = await employeeAction.viewManagers();
   for (let i = 0; i < managerArray.length; i++) {
@@ -317,7 +318,7 @@ async function userPrompt() {
       }
 
       break;
-    // Other cases handling employee actions...
+    // Other cases handling employee actions
     case "Quit":
       console.log("Goodbye");
       break;

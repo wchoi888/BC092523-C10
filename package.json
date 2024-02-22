@@ -4,5 +4,16 @@
     "install": "^0.13.0",
     "mysql2": "^3.7.0",
     "sequelize": "^6.35.2"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "bc092523-c10",
+  "description": "## Your Task",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
